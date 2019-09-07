@@ -1,0 +1,188 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+
+namespace AbCCorp
+
+{
+    class InvalidCreditLimit : Exception
+     {
+
+        public InvalidCreditLimit(string message)
+
+        {
+            Console.WriteLine(message);
+        }
+     }
+    class Customer
+    {
+        private string _customerId;
+        private string _customerName;
+        private string _address;
+        private string _city;
+        private string _phone;
+        private int _creditLimit;
+
+
+        //Default constructor
+        public Customer()
+            {
+
+            }
+
+        //parameterised constructor
+        public Customer(string customerId, string customerNAME, string address, string city, string phone, int creditlimit)
+        {
+            
+            CustomerId = customerId;
+            CustomerName = customerNAME;
+            Address = address;
+            City = city;
+            Phone = phone;
+            CreditLimit = creditlimit;
+          
+
+        }
+
+        //property
+        public string CustomerId
+        {
+            set
+            {
+                _customerId = value;
+            }
+            get
+            {
+                return _customerId;
+            }
+        }
+
+
+        public string CustomerName
+        {
+            set
+            {
+                _customerName = value;
+            }
+            get
+            {
+                return _customerName;
+            }
+        }
+
+        public string Address
+        {
+            set
+            {
+                _address = value;
+            }
+            get
+            {
+                return _address;
+            }
+        }
+
+        public string City
+        {
+            set
+            {
+                _city = value;
+            }
+            get
+            {
+                return _city;
+            }
+        }
+
+        public string Phone
+        {
+            set
+            {
+                _phone = value;
+            }
+            get
+            {
+                return _phone;
+            }
+        }
+
+        public int CreditLimit
+        {
+            set
+            {
+                if (value < 50000)
+                {
+                    _creditLimit = value;
+                }
+                else
+                {
+                    throw new InvalidCreditLimit("Credit limit Exceeded");
+                }
+            }
+            get
+            {
+                return _creditLimit;
+            }
+        }
+
+
+
+        class Program
+        {
+            static void Main()
+            {
+                try
+                {
+                   Customer customer = new Customer( "1234556", "Ayush Agrawal", "Airoli", "Mumbai", "9098850371", 0);
+
+                    System.Console.WriteLine("Enter CustomerId ");
+                    customer.CustomerId = Console.ReadLine();
+                    System.Console.WriteLine("Enter CustomerName ");
+                    customer.CustomerName = Console.ReadLine();
+                    System.Console.WriteLine("Enter address ");
+                    customer.Address = Console.ReadLine();
+                    System.Console.WriteLine("Enter City");
+                    customer.City = Console.ReadLine();
+                    System.Console.WriteLine("Enter Phone ");
+                    customer.Phone = Console.ReadLine();
+                    System.Console.WriteLine("creditLimit");
+                    customer.CreditLimit = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception ex)
+                {
+                    string content = $"\n\n{DateTime.Now}" + $"\nMessage:{ex.Message}" 
+                        + $"\nType:{ex.GetType().ToString()}";
+
+                         Console.WriteLine(content);
+
+                    //FileInfo fi = new FileInfo(@"c:\Capg\logic.txt");
+                    //if (fi.Exists == false)
+                    //{
+                    //    fi.Create();
+                    //}
+
+                    //StreamWriter sw = new StreamWriter(@"c:\Capg\logic.txt", true);
+                    //string content = $"\n\n{DateTime.Now}\nMessage:{ex.Message}\nStock Trace :{ex.StackTrace}\ninnerexception:" +
+                    //    $"{ex.InnerException?.Message}\nType: {ex.GetType().ToString()}";
+                    //sw.Write(content);
+                    //sw.Close();
+
+                    //StreamReader sr = new StreamReader(@"c:\Capg\logic.txt");
+                    //Console.WriteLine(sr.ReadToEnd());
+                    //sr.Close();
+
+                    Console.WriteLine("unexpected error occured, please try again.");
+                }
+                finally
+                {
+                    Console.WriteLine("Thanks");
+                }
+                Console.ReadLine();
+
+            }
+                    
+        }
+    }
+}
+
